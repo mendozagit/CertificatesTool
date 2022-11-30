@@ -9,6 +9,8 @@ namespace CertificatesTool.Models
 {
     internal class SatFile
     {
+       //public int Id { get; set; }
+
         /// <summary>
         /// Gets or sets file encoded in base 64
         /// 1- https://stackoverflow.com/questions/2030847/best-way-to-read-a-large-file-into-a-byte-array-in-c

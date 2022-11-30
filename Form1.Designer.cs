@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.FilesGrid = new System.Windows.Forms.DataGridView();
+            this.Column7 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,7 +38,6 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.LoadButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.InitialPathTextBox = new System.Windows.Forms.TextBox();
@@ -59,6 +59,7 @@
             this.FilesGrid.AllowUserToDeleteRows = false;
             this.FilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FilesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column7,
             this.Column2,
             this.Column3,
             this.Column4,
@@ -72,6 +73,13 @@
             this.FilesGrid.RowTemplate.Height = 25;
             this.FilesGrid.Size = new System.Drawing.Size(1210, 365);
             this.FilesGrid.TabIndex = 3;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Select";
+            this.Column7.Name = "Column7";
+            this.Column7.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // Column2
             // 
@@ -111,7 +119,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.LoadButton);
             this.panel1.Controls.Add(this.SaveButton);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.InitialPathTextBox);
@@ -129,23 +136,13 @@
             this.panel1.Size = new System.Drawing.Size(1210, 155);
             this.panel1.TabIndex = 4;
             // 
-            // LoadButton
-            // 
-            this.LoadButton.Location = new System.Drawing.Point(866, 85);
-            this.LoadButton.Name = "LoadButton";
-            this.LoadButton.Size = new System.Drawing.Size(163, 43);
-            this.LoadButton.TabIndex = 13;
-            this.LoadButton.Text = "Load";
-            this.LoadButton.UseVisualStyleBackColor = true;
-            this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
-            // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(697, 85);
+            this.SaveButton.Location = new System.Drawing.Point(697, 92);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(163, 43);
+            this.SaveButton.Size = new System.Drawing.Size(501, 51);
             this.SaveButton.TabIndex = 12;
-            this.SaveButton.Text = "Save";
+            this.SaveButton.Text = "Sign and verify demo data";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
@@ -219,6 +216,7 @@
             this.RemoveButton.TabIndex = 4;
             this.RemoveButton.Text = "Remove";
             this.RemoveButton.UseVisualStyleBackColor = true;
+            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
             // 
             // SetInitialPathButton
             // 
@@ -274,8 +272,8 @@
         private Label label3;
         private TextBox InitialPathTextBox;
         private Button SetInitialPathButton;
-        private Button LoadButton;
         private Button SaveButton;
+        private DataGridViewCheckBoxColumn Column7;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;

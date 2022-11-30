@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Text.Json;
 using System.Windows.Forms;
 using CertificatesTool.Models;
@@ -12,7 +13,7 @@ namespace CertificatesTool
 {
     public partial class Form1 : Form
     {
-        private List<SatFile>? _satFiles = new List<SatFile>();
+        private List<SatFile> _satFiles = new List<SatFile>();
         private const string FileName = "files.json";
         private readonly string _password;
 
@@ -37,6 +38,7 @@ namespace CertificatesTool
         private SatFile GetFileFromBase64(string base64)
         {
             SatFile satFile = null;
+            var id = _satFiles.Count == 0 ? 1 : _satFiles.Count;
             try
             {
                 var certificate = new Certificate(base64);
@@ -102,13 +104,14 @@ namespace CertificatesTool
             foreach (var satFile in _satFiles)
             {
                 FilesGrid.Rows.Add();
-                FilesGrid.Rows[^1].Cells[0].Value = satFile.FileType;
-                FilesGrid.Rows[^1].Cells[1].Value = satFile.Password;
-                FilesGrid.Rows[^1].Cells[2].Value = satFile.ValidFrom;
-                FilesGrid.Rows[^1].Cells[3].Value = satFile.ValidTo;
-                FilesGrid.Rows[^1].Cells[4].Value = satFile.Rfc;
-                FilesGrid.Rows[^1].Cells[5].Value = satFile.RazonSocial;
-                FilesGrid.Rows[^1].Cells[6].Value = satFile.Base64File;
+                FilesGrid.Rows[^1].Cells[0].Value = false;
+                FilesGrid.Rows[^1].Cells[1].Value = satFile.FileType;
+                FilesGrid.Rows[^1].Cells[2].Value = satFile.Password;
+                FilesGrid.Rows[^1].Cells[3].Value = satFile.ValidFrom;
+                FilesGrid.Rows[^1].Cells[4].Value = satFile.ValidTo;
+                FilesGrid.Rows[^1].Cells[5].Value = satFile.Rfc;
+                FilesGrid.Rows[^1].Cells[6].Value = satFile.RazonSocial;
+                FilesGrid.Rows[^1].Cells[7].Value = satFile.Base64File;
             }
         }
 
@@ -147,6 +150,8 @@ namespace CertificatesTool
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
+            _satFiles.Clear();
+            RefreshGrid();
         }
 
         private void SetInitialPathButton_Click(object sender, EventArgs e)
@@ -155,13 +160,93 @@ namespace CertificatesTool
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            WriteFiles();
+            try
+            {
+                int cerIndex = GetSelectedCertificateIndex();
+                int keyIndex = GetSelectedPrivateKeyIndex();
+
+
+                var cerBase64 = FilesGrid.Rows[cerIndex].Cells[7].Value.ToString();
+                var keyBase64 = FilesGrid.Rows[keyIndex].Cells[7].Value.ToString();
+                var keyPass = FilesGrid.Rows[keyIndex].Cells[2].Value.ToString();
+
+                var certificate = new Certificate(cerBase64);
+                var privateKey = new PrivateKey(keyBase64, keyPass);
+
+
+                //Create a credential instance, certificate and privatekey previously created.
+                var fiel = new Credential(certificate, privateKey);
+
+                var dataToSign = "Hello world"; //replace with cadena original
+
+                //SignData
+                var signedBytes = fiel.SignData(dataToSign);
+
+                //Verify signature
+                var originalDataBytes = Encoding.UTF8.GetBytes(dataToSign);
+                var isValid = fiel.VerifyData(originalDataBytes, signedBytes);
+
+                MessageBox.Show(@"isValid " + isValid);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
 
-        private void LoadButton_Click(object sender, EventArgs e)
+        private int GetSelectedCertificateIndex()
         {
-            // FilesGrid.Rows.Clear();
-            ReadFiles();
+            var index = 0;
+            foreach (DataGridViewRow row in FilesGrid.Rows)
+            {
+                var selectedValue = (bool)row.Cells[0].Value;
+                var fileTypeValue = (FileType)row.Cells[1].Value;
+
+                if (selectedValue == true && fileTypeValue == FileType.CertificateCsd)
+                {
+                    return index;
+                }
+
+                index++;
+            }
+
+            return index;
+        }
+
+        private int GetSelectedPrivateKeyIndex()
+        {
+            var index = 0;
+            foreach (DataGridViewRow row in FilesGrid.Rows)
+            {
+                var selectedValue = (bool)row.Cells[0].Value;
+                var fileTypeValue = (FileType)row.Cells[1].Value;
+
+                if (selectedValue == true && fileTypeValue == FileType.PrivateKeyCsd)
+                {
+                    return index;
+                }
+
+                index++;
+            }
+
+            return index;
+        }
+
+        private void RemoveButton_Click(object sender, EventArgs e)
+        {
+            RemoveSelectedRow();
+        }
+
+        private void RemoveSelectedRow()
+        {
+            if (FilesGrid.Rows.Count == 0)
+                return;
+
+            var index = FilesGrid.CurrentCell.RowIndex;
+
+            _satFiles.RemoveAt(index);
+
+            RefreshGrid();
         }
     }
 }
