@@ -160,14 +160,13 @@ namespace CertificatesTool
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-
             //demos
             try
             {
                 int cerIndex = GetSelectedCertificateIndex();
                 int keyIndex = GetSelectedPrivateKeyIndex();
 
-                
+
                 var cerBase64 = FilesGrid.Rows[cerIndex].Cells[7].Value.ToString();
                 var keyBase64 = FilesGrid.Rows[keyIndex].Cells[7].Value.ToString();
                 var keyPass = FilesGrid.Rows[keyIndex].Cells[2].Value.ToString();
@@ -249,6 +248,21 @@ namespace CertificatesTool
             _satFiles.RemoveAt(index);
 
             RefreshGrid();
+        }
+
+        private void EncodePkPassButton_Click(object sender, EventArgs e)
+        {
+            EncodeSelectedPkPass();
+        }
+
+        private void EncodeSelectedPkPass()
+        {
+            if (FilesGrid.Rows.Count == 0)
+                return;
+
+            var index = FilesGrid.CurrentCell.RowIndex;
+            var plainPass = FilesGrid.Rows[index].Cells[2]?.Value?.ToString() ?? "";
+            EncodedPkPassTextBox.Text = plainPass.EncodeToBase64();
         }
     }
 }
