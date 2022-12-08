@@ -13,20 +13,22 @@ namespace CertificatesTool
 {
     public partial class Form1 : Form
     {
+        
         private List<SatFile> _satFiles = new List<SatFile>();
         private const string FileName = "files.json";
-        private readonly string _password;
+        private string _password;
 
 
         public Form1()
         {
             InitializeComponent();
-            _password = PassTextBox.Text.Trim();
+
             ReadFiles();
         }
 
         private void AddFileButton_Click(object sender, EventArgs e)
         {
+            _password = PassTextBox.Text.Trim();
             var path = GetFilePath();
             var base64 = GetBase64(path);
             var file = GetFileFromBase64(base64);
@@ -34,9 +36,18 @@ namespace CertificatesTool
 
             RefreshGrid();
         }
-
+        /// <summary>
+        /// 0=CertificateCsd,
+        /// 1=PrivateKeyCsd,
+        /// 2=CertificateFiel,
+        /// 3=PrivateKeyFiel,
+        /// 4=Pfx,
+        /// </summary>
+        /// <param name="base64"></param>
+        /// <returns></returns>
         private SatFile GetFileFromBase64(string base64)
         {
+            
             SatFile satFile = null;
             var id = _satFiles.Count == 0 ? 1 : _satFiles.Count;
             try
@@ -163,6 +174,7 @@ namespace CertificatesTool
             //demos
             try
             {
+                _password = PassTextBox.Text.Trim();
                 int cerIndex = GetSelectedCertificateIndex();
                 int keyIndex = GetSelectedPrivateKeyIndex();
 
@@ -240,6 +252,7 @@ namespace CertificatesTool
 
         private void RemoveSelectedRow()
         {
+            
             if (FilesGrid.Rows.Count == 0)
                 return;
 
@@ -257,6 +270,7 @@ namespace CertificatesTool
 
         private void EncodeSelectedPkPass()
         {
+            _password = PassTextBox.Text.Trim();
             if (FilesGrid.Rows.Count == 0)
                 return;
 
