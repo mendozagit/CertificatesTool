@@ -11,6 +11,9 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace CertificatesTool
 {
+    /// <summary>
+    /// sample form
+    /// </summary>
     public partial class Form1 : Form
     {
         
