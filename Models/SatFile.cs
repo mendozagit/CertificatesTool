@@ -1,12 +1,17 @@
-﻿using Credencials.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace CertificatesTool.Models
 {
+    /// <summary>
+    /// SAT file types for certificates and private keys
+    /// </summary>
+    internal enum FileType
+    {
+        CertificateCsd = 0,
+        PrivateKeyCsd = 1,
+        CertificateFiel = 2,
+        PrivateKeyFiel = 3,
+        Pfx = 4
+    }
+
     internal class SatFile
     {
        //public int Id { get; set; }

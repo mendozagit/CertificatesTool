@@ -1,13 +1,10 @@
-using System;
+
 using System.Text;
 using System.Text.Json;
-using System.Windows.Forms;
+
 using CertificatesTool.Models;
-using Credencials.Common;
-using Credencials.Core;
-using Microsoft.VisualBasic.Devices;
-using Newtonsoft.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
+
+using Fiscalapi.Credentials.Core;
 
 namespace CertificatesTool
 {
@@ -95,9 +92,8 @@ namespace CertificatesTool
         {
             if (File.Exists(FileName))
             {
-                //_satFiles = JsonSerializer.Deserialize<List<SatFile>?>(FileName);
-                // read file into a string and deserialize JSON to a type
-                _satFiles = JsonConvert.DeserializeObject<List<SatFile>>(File.ReadAllText(FileName));
+                var json = File.ReadAllText(FileName);
+                _satFiles = JsonSerializer.Deserialize<List<SatFile>>(json) ?? new List<SatFile>();
                 RefreshGrid();
             }
         }
@@ -106,8 +102,8 @@ namespace CertificatesTool
         {
             if (_satFiles is null) return;
 
-            // serialize JSON to a string and then write string to a file
-            File.WriteAllText(FileName, JsonConvert.SerializeObject(_satFiles));
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            File.WriteAllText(FileName, JsonSerializer.Serialize(_satFiles, options));
         }
 
 
@@ -279,7 +275,56 @@ namespace CertificatesTool
 
             var index = FilesGrid.CurrentCell.RowIndex;
             var plainPass = FilesGrid.Rows[index].Cells[2]?.Value?.ToString() ?? "";
-            EncodedPkPassTextBox.Text = plainPass.EncodeToBase64();
+            EncodedPkPassTextBox.Text = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainPass));
+        }
+
+        private void SaveFileButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var base64Content = Base64FileTextBox.Text.Trim();
+                var extension = FileExtensionTextBox.Text.Trim();
+
+                if (string.IsNullOrEmpty(base64Content))
+                {
+                    MessageBox.Show("Please enter a Base64 string.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(extension))
+                {
+                    MessageBox.Show("Please enter a file extension.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Ensure extension starts with a dot
+                if (!extension.StartsWith("."))
+                {
+                    extension = "." + extension;
+                }
+
+                // Generate filename from extension (e.g., .cer -> CER.cer, .key -> KEY.key)
+                var extensionName = extension.TrimStart('.').ToUpperInvariant();
+                var fileName = $"{extensionName}{extension.ToLowerInvariant()}";
+
+                // Save directly to Desktop
+                var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                var fullPath = Path.Combine(desktopPath, fileName);
+
+                // Decode base64 and save as binary file
+                var fileBytes = Convert.FromBase64String(base64Content);
+                File.WriteAllBytes(fullPath, fileBytes);
+
+                MessageBox.Show($"File saved successfully:\n{fullPath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid Base64 string. Please check the content.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

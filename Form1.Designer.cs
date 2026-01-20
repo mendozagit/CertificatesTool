@@ -1,4 +1,4 @@
-﻿namespace CertificatesTool
+namespace CertificatesTool
 {
     partial class Form1
     {
@@ -28,240 +28,288 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.FilesGrid = new System.Windows.Forms.DataGridView();
-            this.Column7 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.EncodePkPassButton = new System.Windows.Forms.Button();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.InitialPathTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.EncodedPkPassTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.PassTextBox = new System.Windows.Forms.TextBox();
-            this.ClearButton = new System.Windows.Forms.Button();
-            this.RemoveButton = new System.Windows.Forms.Button();
-            this.AddFileButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.FilesGrid)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            FilesGrid = new DataGridView();
+            Column7 = new DataGridViewCheckBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column4 = new DataGridViewTextBoxColumn();
+            Column5 = new DataGridViewTextBoxColumn();
+            RFC = new DataGridViewTextBoxColumn();
+            Column6 = new DataGridViewTextBoxColumn();
+            Column1 = new DataGridViewTextBoxColumn();
+            panel1 = new Panel();
+            SaveFileButton = new Button();
+            FileExtensionTextBox = new TextBox();
+            Base64FileTextBox = new TextBox();
+            EncodePkPassButton = new Button();
+            SaveButton = new Button();
+            label3 = new Label();
+            InitialPathTextBox = new TextBox();
+            label2 = new Label();
+            EncodedPkPassTextBox = new TextBox();
+            label1 = new Label();
+            PassTextBox = new TextBox();
+            ClearButton = new Button();
+            RemoveButton = new Button();
+            AddFileButton = new Button();
+            label4 = new Label();
+            label5 = new Label();
+            ((System.ComponentModel.ISupportInitialize)FilesGrid).BeginInit();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // FilesGrid
             // 
-            this.FilesGrid.AllowUserToAddRows = false;
-            this.FilesGrid.AllowUserToDeleteRows = false;
-            this.FilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FilesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column7,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.RFC,
-            this.Column6,
-            this.Column1});
-            this.FilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FilesGrid.Location = new System.Drawing.Point(0, 0);
-            this.FilesGrid.Name = "FilesGrid";
-            this.FilesGrid.RowTemplate.Height = 25;
-            this.FilesGrid.Size = new System.Drawing.Size(1204, 365);
-            this.FilesGrid.TabIndex = 3;
+            FilesGrid.AllowUserToAddRows = false;
+            FilesGrid.AllowUserToDeleteRows = false;
+            FilesGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            FilesGrid.Columns.AddRange(new DataGridViewColumn[] { Column7, Column2, Column3, Column4, Column5, RFC, Column6, Column1 });
+            FilesGrid.Dock = DockStyle.Fill;
+            FilesGrid.Location = new Point(0, 0);
+            FilesGrid.Name = "FilesGrid";
+            FilesGrid.Size = new Size(1204, 330);
+            FilesGrid.TabIndex = 3;
             // 
             // Column7
             // 
-            this.Column7.HeaderText = "Select";
-            this.Column7.Name = "Column7";
-            this.Column7.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            Column7.HeaderText = "Select";
+            Column7.Name = "Column7";
+            Column7.Resizable = DataGridViewTriState.True;
+            Column7.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // Column2
             // 
-            this.Column2.HeaderText = "FileType";
-            this.Column2.Name = "Column2";
+            Column2.HeaderText = "FileType";
+            Column2.Name = "Column2";
             // 
             // Column3
             // 
-            this.Column3.HeaderText = "Password";
-            this.Column3.Name = "Column3";
+            Column3.HeaderText = "Password";
+            Column3.Name = "Column3";
             // 
             // Column4
             // 
-            this.Column4.HeaderText = "ValidFrom";
-            this.Column4.Name = "Column4";
+            Column4.HeaderText = "ValidFrom";
+            Column4.Name = "Column4";
             // 
             // Column5
             // 
-            this.Column5.HeaderText = "ValidTo";
-            this.Column5.Name = "Column5";
+            Column5.HeaderText = "ValidTo";
+            Column5.Name = "Column5";
             // 
             // RFC
             // 
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
+            RFC.HeaderText = "RFC";
+            RFC.Name = "RFC";
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "RAZON SOCIAL";
-            this.Column6.Name = "Column6";
+            Column6.HeaderText = "RAZON SOCIAL";
+            Column6.Name = "Column6";
             // 
             // Column1
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.HeaderText = "Base64File";
-            this.Column1.Name = "Column1";
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column1.HeaderText = "Base64File";
+            Column1.Name = "Column1";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.EncodePkPassButton);
-            this.panel1.Controls.Add(this.SaveButton);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.InitialPathTextBox);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.EncodedPkPassTextBox);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.PassTextBox);
-            this.panel1.Controls.Add(this.ClearButton);
-            this.panel1.Controls.Add(this.RemoveButton);
-            this.panel1.Controls.Add(this.AddFileButton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 365);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1204, 155);
-            this.panel1.TabIndex = 4;
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(SaveFileButton);
+            panel1.Controls.Add(FileExtensionTextBox);
+            panel1.Controls.Add(Base64FileTextBox);
+            panel1.Controls.Add(EncodePkPassButton);
+            panel1.Controls.Add(SaveButton);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(InitialPathTextBox);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(EncodedPkPassTextBox);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(PassTextBox);
+            panel1.Controls.Add(ClearButton);
+            panel1.Controls.Add(RemoveButton);
+            panel1.Controls.Add(AddFileButton);
+            panel1.Dock = DockStyle.Bottom;
+            panel1.Location = new Point(0, 330);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1204, 155);
+            panel1.TabIndex = 4;
+            // 
+            // SaveFileButton
+            // 
+            SaveFileButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            SaveFileButton.Location = new Point(860, 95);
+            SaveFileButton.Name = "SaveFileButton";
+            SaveFileButton.Size = new Size(89, 52);
+            SaveFileButton.TabIndex = 16;
+            SaveFileButton.Text = "Save File";
+            SaveFileButton.UseVisualStyleBackColor = true;
+            SaveFileButton.Click += SaveFileButton_Click;
+            // 
+            // FileExtensionTextBox
+            // 
+            FileExtensionTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            FileExtensionTextBox.Location = new Point(691, 124);
+            FileExtensionTextBox.Name = "FileExtensionTextBox";
+            FileExtensionTextBox.Size = new Size(163, 23);
+            FileExtensionTextBox.TabIndex = 15;
+            // 
+            // Base64FileTextBox
+            // 
+            Base64FileTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Base64FileTextBox.Location = new Point(691, 95);
+            Base64FileTextBox.Name = "Base64FileTextBox";
+            Base64FileTextBox.Size = new Size(163, 23);
+            Base64FileTextBox.TabIndex = 14;
             // 
             // EncodePkPassButton
             // 
-            this.EncodePkPassButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.EncodePkPassButton.Location = new System.Drawing.Point(546, 13);
-            this.EncodePkPassButton.Name = "EncodePkPassButton";
-            this.EncodePkPassButton.Size = new System.Drawing.Size(139, 48);
-            this.EncodePkPassButton.TabIndex = 13;
-            this.EncodePkPassButton.Text = "Encode PK Pass";
-            this.EncodePkPassButton.UseVisualStyleBackColor = true;
-            this.EncodePkPassButton.Click += new System.EventHandler(this.EncodePkPassButton_Click);
+            EncodePkPassButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            EncodePkPassButton.Location = new Point(546, 13);
+            EncodePkPassButton.Name = "EncodePkPassButton";
+            EncodePkPassButton.Size = new Size(139, 48);
+            EncodePkPassButton.TabIndex = 13;
+            EncodePkPassButton.Text = "Encode PK Pass";
+            EncodePkPassButton.UseVisualStyleBackColor = true;
+            EncodePkPassButton.Click += EncodePkPassButton_Click;
             // 
             // SaveButton
             // 
-            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(691, 92);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(501, 51);
-            this.SaveButton.TabIndex = 12;
-            this.SaveButton.Text = "Sign and verify demo data";
-            this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            SaveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            SaveButton.Location = new Point(1029, 92);
+            SaveButton.Name = "SaveButton";
+            SaveButton.Size = new Size(163, 51);
+            SaveButton.TabIndex = 12;
+            SaveButton.Text = "Sign and verify demo data";
+            SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 77);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 15);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "InitialDirectory";
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Location = new Point(3, 95);
+            label3.Name = "label3";
+            label3.Size = new Size(84, 15);
+            label3.TabIndex = 11;
+            label3.Text = "InitialDirectory";
             // 
             // InitialPathTextBox
             // 
-            this.InitialPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.InitialPathTextBox.Location = new System.Drawing.Point(6, 102);
-            this.InitialPathTextBox.Name = "InitialPathTextBox";
-            this.InitialPathTextBox.Size = new System.Drawing.Size(512, 23);
-            this.InitialPathTextBox.TabIndex = 10;
-            this.InitialPathTextBox.Text = "G:\\Mi unidad\\Facturacion\\RFC-PAC-SC(SellosPrueba)\\Personas Fisicas";
+            InitialPathTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            InitialPathTextBox.Location = new Point(3, 120);
+            InitialPathTextBox.Name = "InitialPathTextBox";
+            InitialPathTextBox.Size = new Size(512, 23);
+            InitialPathTextBox.TabIndex = 10;
+            InitialPathTextBox.Text = "G:\\Mi unidad\\Facturacion\\RFC-PAC-SC(SellosPrueba)\\Personas Fisicas";
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(166, 15);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Encoded Private key Password";
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Location = new Point(6, 13);
+            label2.Name = "label2";
+            label2.Size = new Size(166, 15);
+            label2.TabIndex = 9;
+            label2.Text = "Encoded Private key Password";
             // 
             // EncodedPkPassTextBox
             // 
-            this.EncodedPkPassTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.EncodedPkPassTextBox.Location = new System.Drawing.Point(6, 38);
-            this.EncodedPkPassTextBox.Name = "EncodedPkPassTextBox";
-            this.EncodedPkPassTextBox.Size = new System.Drawing.Size(360, 23);
-            this.EncodedPkPassTextBox.TabIndex = 8;
+            EncodedPkPassTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            EncodedPkPassTextBox.Location = new Point(6, 38);
+            EncodedPkPassTextBox.Name = "EncodedPkPassTextBox";
+            EncodedPkPassTextBox.Size = new Size(360, 23);
+            EncodedPkPassTextBox.TabIndex = 8;
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(372, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 15);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Plain Private Key Pass";
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Location = new Point(372, 13);
+            label1.Name = "label1";
+            label1.Size = new Size(120, 15);
+            label1.TabIndex = 7;
+            label1.Text = "Plain Private Key Pass";
             // 
             // PassTextBox
             // 
-            this.PassTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PassTextBox.Location = new System.Drawing.Point(372, 38);
-            this.PassTextBox.Name = "PassTextBox";
-            this.PassTextBox.Size = new System.Drawing.Size(154, 23);
-            this.PassTextBox.TabIndex = 6;
-            this.PassTextBox.Text = "12345678a";
+            PassTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            PassTextBox.Location = new Point(372, 38);
+            PassTextBox.Name = "PassTextBox";
+            PassTextBox.Size = new Size(154, 23);
+            PassTextBox.TabIndex = 6;
+            PassTextBox.Text = "12345678a";
             // 
             // ClearButton
             // 
-            this.ClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClearButton.Location = new System.Drawing.Point(1029, 13);
-            this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(163, 48);
-            this.ClearButton.TabIndex = 5;
-            this.ClearButton.Text = "Clear All";
-            this.ClearButton.UseVisualStyleBackColor = true;
-            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            ClearButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ClearButton.Location = new Point(1029, 13);
+            ClearButton.Name = "ClearButton";
+            ClearButton.Size = new Size(163, 48);
+            ClearButton.TabIndex = 5;
+            ClearButton.Text = "Clear All";
+            ClearButton.UseVisualStyleBackColor = true;
+            ClearButton.Click += ClearButton_Click;
             // 
             // RemoveButton
             // 
-            this.RemoveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.RemoveButton.Location = new System.Drawing.Point(860, 13);
-            this.RemoveButton.Name = "RemoveButton";
-            this.RemoveButton.Size = new System.Drawing.Size(163, 48);
-            this.RemoveButton.TabIndex = 4;
-            this.RemoveButton.Text = "Remove";
-            this.RemoveButton.UseVisualStyleBackColor = true;
-            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
+            RemoveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            RemoveButton.Location = new Point(860, 13);
+            RemoveButton.Name = "RemoveButton";
+            RemoveButton.Size = new Size(163, 48);
+            RemoveButton.TabIndex = 4;
+            RemoveButton.Text = "Remove";
+            RemoveButton.UseVisualStyleBackColor = true;
+            RemoveButton.Click += RemoveButton_Click;
             // 
             // AddFileButton
             // 
-            this.AddFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddFileButton.Location = new System.Drawing.Point(691, 13);
-            this.AddFileButton.Name = "AddFileButton";
-            this.AddFileButton.Size = new System.Drawing.Size(163, 48);
-            this.AddFileButton.TabIndex = 3;
-            this.AddFileButton.Text = "AddFile";
-            this.AddFileButton.UseVisualStyleBackColor = true;
-            this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
+            AddFileButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            AddFileButton.Location = new Point(691, 13);
+            AddFileButton.Name = "AddFileButton";
+            AddFileButton.Size = new Size(163, 48);
+            AddFileButton.TabIndex = 3;
+            AddFileButton.Text = "AddFile";
+            AddFileButton.UseVisualStyleBackColor = true;
+            AddFileButton.Click += AddFileButton_Click;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Location = new Point(612, 103);
+            label4.Name = "label4";
+            label4.Size = new Size(73, 15);
+            label4.TabIndex = 17;
+            label4.Text = "BASE64 FILE:";
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Location = new Point(586, 127);
+            label5.Name = "label5";
+            label5.Size = new Size(99, 15);
+            label5.TabIndex = 18;
+            label5.Text = "FILE EXTENSION :";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1204, 520);
-            this.Controls.Add(this.FilesGrid);
-            this.Controls.Add(this.panel1);
-            this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.FilesGrid)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1204, 485);
+            Controls.Add(FilesGrid);
+            Controls.Add(panel1);
+            Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Form1";
+            FormClosing += Form1_FormClosing;
+            ((System.ComponentModel.ISupportInitialize)FilesGrid).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
 
         }
 
@@ -288,5 +336,10 @@
         private DataGridViewTextBoxColumn Column6;
         private DataGridViewTextBoxColumn Column1;
         private Button EncodePkPassButton;
+        private Button SaveFileButton;
+        private TextBox FileExtensionTextBox;
+        private TextBox Base64FileTextBox;
+        private Label label5;
+        private Label label4;
     }
 }
