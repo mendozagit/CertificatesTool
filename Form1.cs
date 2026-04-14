@@ -1,330 +1,265 @@
-
+using System.ComponentModel;
 using System.Text;
-using System.Text.Json;
 
+using CertificatesTool.Forms;
 using CertificatesTool.Models;
-
-using Fiscalapi.Credentials.Core;
+using CertificatesTool.Services;
 
 namespace CertificatesTool
 {
-    /// <summary>
-    /// sample form
-    /// </summary>
     public partial class Form1 : Form
     {
-        
-        private List<SatFile> _satFiles = new List<SatFile>();
-        private const string FileName = "files.json";
-        private string _password;
+        private readonly CredentialRepository _repository = new();
+        private readonly CredentialFactory _factory = new();
+        private readonly CredentialExporter _exporter = new();
+        private readonly CryptoService _crypto = new();
 
+        private readonly BindingList<Credential> _credentials;
 
         public Form1()
         {
             InitializeComponent();
 
-            ReadFiles();
+            _credentials = new BindingList<Credential>(_repository.LoadAll());
+            FilesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            FilesGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            FilesGrid.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            FilesGrid.DataBindingComplete += FilesGrid_DataBindingComplete;
+            FilesGrid.DataSource = _credentials;
         }
 
-        private void AddFileButton_Click(object sender, EventArgs e)
+        private void FilesGrid_DataBindingComplete(object? sender, DataGridViewBindingCompleteEventArgs e)
         {
-            _password = PassTextBox.Text.Trim();
-            var path = GetFilePath();
-            var base64 = GetBase64(path);
-            var file = GetFileFromBase64(base64);
-            _satFiles?.Add(file);
+            foreach (DataGridViewColumn column in FilesGrid.Columns)
+                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-            RefreshGrid();
+            if (FilesGrid.Columns[nameof(Credential.ValidTo)] is { } lastColumn)
+                lastColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
-        /// <summary>
-        /// 0=CertificateCsd,
-        /// 1=PrivateKeyCsd,
-        /// 2=CertificateFiel,
-        /// 3=PrivateKeyFiel,
-        /// 4=Pfx,
-        /// </summary>
-        /// <param name="base64"></param>
-        /// <returns></returns>
-        private SatFile GetFileFromBase64(string base64)
+
+        private Credential? GetSelectedCredential()
         {
-            
-            SatFile satFile = null;
-            var id = _satFiles.Count == 0 ? 1 : _satFiles.Count;
-            try
-            {
-                var certificate = new Certificate(base64);
-                satFile = new SatFile
-                {
-                    Base64File = certificate.PlainBase64,
-                    FileType = FileType.CertificateCsd,
-                    Password = null,
-                    ValidFrom = certificate.ValidFrom,
-                    ValidTo = certificate.ValidTo,
-                    Rfc = certificate.Rfc,
-                    RazonSocial = certificate.Organization
-                };
-                return satFile;
-            }
-            catch (Exception e)
-            {
-                try
-                {
-                    var privateKey = new PrivateKey(base64, _password);
-
-                    satFile = new SatFile
-                    {
-                        Base64File = privateKey.Base64,
-                        FileType = FileType.PrivateKeyCsd,
-                        Password = _password
-                    };
-                    return satFile;
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message);
-                }
-            }
-
-            return satFile ?? new SatFile();
+            return FilesGrid.CurrentRow?.DataBoundItem as Credential;
         }
 
-        private void ReadFiles()
-        {
-            if (File.Exists(FileName))
-            {
-                var json = File.ReadAllText(FileName);
-                _satFiles = JsonSerializer.Deserialize<List<SatFile>>(json) ?? new List<SatFile>();
-                RefreshGrid();
-            }
-        }
-
-        private void WriteFiles()
-        {
-            if (_satFiles is null) return;
-
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            File.WriteAllText(FileName, JsonSerializer.Serialize(_satFiles, options));
-        }
-
-
-        private void RefreshGrid()
-        {
-            FilesGrid.Rows.Clear();
-
-            foreach (var satFile in _satFiles)
-            {
-                FilesGrid.Rows.Add();
-                FilesGrid.Rows[^1].Cells[0].Value = false;
-                FilesGrid.Rows[^1].Cells[1].Value = satFile.FileType;
-                FilesGrid.Rows[^1].Cells[2].Value = satFile.Password;
-                FilesGrid.Rows[^1].Cells[3].Value = satFile.ValidFrom;
-                FilesGrid.Rows[^1].Cells[4].Value = satFile.ValidTo;
-                FilesGrid.Rows[^1].Cells[5].Value = satFile.Rfc;
-                FilesGrid.Rows[^1].Cells[6].Value = satFile.RazonSocial;
-                FilesGrid.Rows[^1].Cells[7].Value = satFile.Base64File;
-            }
-        }
+        private static string DesktopPath =>
+            Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            WriteFiles();
-        }
-
-
-        private string GetBase64(string filePath)
-        {
-            var fileBytes = File.ReadAllBytes(filePath);
-            var fileBase64 = Convert.ToBase64String(fileBytes);
-            return fileBase64;
-        }
-
-        private string GetFilePath()
-        {
-            var fileContent = string.Empty;
-            var filePath = string.Empty;
-
-            using var openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = InitialPathTextBox.Text.Trim();
-            openFileDialog.Filter = @"txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                //Get the path of specified file
-                filePath = openFileDialog.FileName;
-            }
-
-            return filePath;
-        }
-
-        private void ClearButton_Click(object sender, EventArgs e)
-        {
-            _satFiles.Clear();
-            RefreshGrid();
-        }
-
-        private void SetInitialPathButton_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            //demos
             try
             {
-                _password = PassTextBox.Text.Trim();
-                int cerIndex = GetSelectedCertificateIndex();
-                int keyIndex = GetSelectedPrivateKeyIndex();
-
-
-                var cerBase64 = FilesGrid.Rows[cerIndex].Cells[7].Value.ToString();
-                var keyBase64 = FilesGrid.Rows[keyIndex].Cells[7].Value.ToString();
-                var keyPass = FilesGrid.Rows[keyIndex].Cells[2].Value.ToString();
-
-                var certificate = new Certificate(cerBase64);
-                var privateKey = new PrivateKey(keyBase64, keyPass);
-
-
-                //Create a credential instance, certificate and privatekey previously created.
-                var fiel = new Credential(certificate, privateKey);
-
-                var dataToSign = "Hello world"; //replace with cadena original
-
-                //SignData
-                var signedBytes = fiel.SignData(dataToSign);
-
-                //Verify signature
-                var originalDataBytes = Encoding.UTF8.GetBytes(dataToSign);
-                var isValid = fiel.VerifyData(originalDataBytes, signedBytes);
-
-                MessageBox.Show(@"isValid " + isValid);
+                _repository.SaveAll(_credentials);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                MessageBox.Show(exception.Message);
+                MessageBox.Show(this, $"Error al guardar credenciales: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private int GetSelectedCertificateIndex()
+        private void AddCredentialButton_Click(object sender, EventArgs e)
         {
-            var index = 0;
-            foreach (DataGridViewRow row in FilesGrid.Rows)
+            using var dialog = new AddCredentialForm(_factory);
+            if (dialog.ShowDialog(this) != DialogResult.OK || dialog.Result is null)
+                return;
+
+            var incoming = dialog.Result;
+            if (_credentials.Any(c => string.Equals(
+                    c.RazonSocial, incoming.RazonSocial, StringComparison.OrdinalIgnoreCase)))
             {
-                var selectedValue = (bool)row.Cells[0].Value;
-                var fileTypeValue = (FileType)row.Cells[1].Value;
-
-                if (selectedValue == true && fileTypeValue == FileType.CertificateCsd)
-                {
-                    return index;
-                }
-
-                index++;
+                MessageBox.Show(this,
+                    $"Ya existe una credencial con la razón social \"{incoming.RazonSocial}\".",
+                    "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            return index;
-        }
-
-        private int GetSelectedPrivateKeyIndex()
-        {
-            var index = 0;
-            foreach (DataGridViewRow row in FilesGrid.Rows)
-            {
-                var selectedValue = (bool)row.Cells[0].Value;
-                var fileTypeValue = (FileType)row.Cells[1].Value;
-
-                if (selectedValue == true && fileTypeValue == FileType.PrivateKeyCsd)
-                {
-                    return index;
-                }
-
-                index++;
-            }
-
-            return index;
+            _credentials.Add(incoming);
+            _repository.SaveAll(_credentials);
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-            RemoveSelectedRow();
+            var selected = GetSelectedCredential();
+            if (selected is null) return;
+
+            _credentials.Remove(selected);
+            _repository.SaveAll(_credentials);
         }
 
-        private void RemoveSelectedRow()
+        private void ClearButton_Click(object sender, EventArgs e)
         {
-            
-            if (FilesGrid.Rows.Count == 0)
+            if (_credentials.Count == 0) return;
+
+            var confirm = MessageBox.Show(this,
+                "¿Eliminar todas las credenciales?", "Confirmar",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirm != DialogResult.Yes) return;
+
+            _credentials.Clear();
+            _repository.SaveAll(_credentials);
+        }
+
+        private void ExportCerButton_Click(object sender, EventArgs e)
+        {
+            var selected = GetSelectedCredential();
+            if (selected is null)
+            {
+                MessageBox.Show(this, "Selecciona una credencial.", "Exportar .cer",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
+            }
 
-            var index = FilesGrid.CurrentCell.RowIndex;
+            try
+            {
+                var path = _exporter.ExportCertificate(selected, DesktopPath);
+                MessageBox.Show(this, $"Certificado exportado:\n{path}", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-            _satFiles.RemoveAt(index);
+        private void ExportKeyButton_Click(object sender, EventArgs e)
+        {
+            var selected = GetSelectedCredential();
+            if (selected is null)
+            {
+                MessageBox.Show(this, "Selecciona una credencial.", "Exportar .key",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-            RefreshGrid();
+            try
+            {
+                var path = _exporter.ExportPrivateKey(selected, DesktopPath);
+                MessageBox.Show(this, $"Llave privada exportada:\n{path}", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SavePairButton_Click(object sender, EventArgs e)
+        {
+            var selected = GetSelectedCredential();
+            if (selected is null)
+            {
+                MessageBox.Show(this, "Selecciona una credencial.", "Exportar par",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                var path = _exporter.ExportPairText(selected, DesktopPath);
+                MessageBox.Show(this, $"Par exportado:\n{path}", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void EncodePkPassButton_Click(object sender, EventArgs e)
         {
-            EncodeSelectedPkPass();
+            var selected = GetSelectedCredential();
+            if (selected is null)
+            {
+                EncodedPkPassTextBox.Text = string.Empty;
+                return;
+            }
+
+            EncodedPkPassTextBox.Text =
+                Convert.ToBase64String(Encoding.UTF8.GetBytes(selected.Password));
         }
 
-        private void EncodeSelectedPkPass()
+        private void SignAndVerifyButton_Click(object sender, EventArgs e)
         {
-            _password = PassTextBox.Text.Trim();
-            if (FilesGrid.Rows.Count == 0)
+            var selected = GetSelectedCredential();
+            if (selected is null)
+            {
+                MessageBox.Show(this, "Selecciona una credencial.", "Firma",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
+            }
 
-            var index = FilesGrid.CurrentCell.RowIndex;
-            var plainPass = FilesGrid.Rows[index].Cells[2]?.Value?.ToString() ?? "";
-            EncodedPkPassTextBox.Text = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainPass));
+            try
+            {
+                var (_, isValid) = _crypto.SignAndVerify(selected, "Hello world");
+                MessageBox.Show(this, $"isValid {isValid}", "Firma y verificación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CopyBase64CerButton_Click(object sender, EventArgs e)
+        {
+            var selected = GetSelectedCredential();
+            if (selected is null) return;
+            CopyToClipboard(selected.CertificateBase64, ".cer (base64)");
+        }
+
+        private void CopyBase64KeyButton_Click(object sender, EventArgs e)
+        {
+            var selected = GetSelectedCredential();
+            if (selected is null) return;
+            CopyToClipboard(selected.PrivateKeyBase64, ".key (base64)");
+        }
+
+        private void CopyPlainPassPhraseButton_Click(object sender, EventArgs e)
+        {
+            var selected = GetSelectedCredential();
+            if (selected is null) return;
+            CopyToClipboard(selected.Password, "contraseña");
+        }
+
+        private void CopyToClipboard(string value, string label)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                MessageBox.Show(this, $"No hay {label} para copiar.", "Copiar",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Clipboard.SetText(value);
         }
 
         private void SaveFileButton_Click(object sender, EventArgs e)
         {
             try
             {
-                var base64Content = Base64FileTextBox.Text.Trim();
+                var base64 = Base64FileTextBox.Text.Trim();
                 var extension = FileExtensionTextBox.Text.Trim();
-
-                if (string.IsNullOrEmpty(base64Content))
-                {
-                    MessageBox.Show("Please enter a Base64 string.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(extension))
-                {
-                    MessageBox.Show("Please enter a file extension.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Ensure extension starts with a dot
-                if (!extension.StartsWith("."))
-                {
-                    extension = "." + extension;
-                }
-
-                // Generate filename from extension (e.g., .cer -> CER.cer, .key -> KEY.key)
-                var extensionName = extension.TrimStart('.').ToUpperInvariant();
-                var fileName = $"{extensionName}{extension.ToLowerInvariant()}";
-
-                // Save directly to Desktop
-                var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                var fullPath = Path.Combine(desktopPath, fileName);
-
-                // Decode base64 and save as binary file
-                var fileBytes = Convert.FromBase64String(base64Content);
-                File.WriteAllBytes(fullPath, fileBytes);
-
-                MessageBox.Show($"File saved successfully:\n{fullPath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var path = _exporter.SaveBase64ToFile(base64, extension, DesktopPath);
+                MessageBox.Show(this, $"Archivo guardado:\n{path}", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (FormatException)
             {
-                MessageBox.Show("Invalid Base64 string. Please check the content.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Base64 inválido. Verifica el contenido.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+      
     }
 }

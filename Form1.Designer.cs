@@ -2,60 +2,41 @@ namespace CertificatesTool
 {
     partial class Form1
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             FilesGrid = new DataGridView();
-            Column7 = new DataGridViewCheckBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
-            Column5 = new DataGridViewTextBoxColumn();
-            RFC = new DataGridViewTextBoxColumn();
-            Column6 = new DataGridViewTextBoxColumn();
-            Column1 = new DataGridViewTextBoxColumn();
-            panel1 = new Panel();
-            SaveFileButton = new Button();
-            FileExtensionTextBox = new TextBox();
-            Base64FileTextBox = new TextBox();
-            EncodePkPassButton = new Button();
-            SaveButton = new Button();
-            label3 = new Label();
-            InitialPathTextBox = new TextBox();
-            label2 = new Label();
-            EncodedPkPassTextBox = new TextBox();
-            label1 = new Label();
-            PassTextBox = new TextBox();
-            ClearButton = new Button();
+            AddCredentialButton = new Button();
             RemoveButton = new Button();
-            AddFileButton = new Button();
-            label4 = new Label();
-            label5 = new Label();
+            ClearButton = new Button();
+            ExportCerButton = new Button();
+            ExportKeyButton = new Button();
+            SavePairButton = new Button();
+            EncodePkPassButton = new Button();
+            SignAndVerifyButton = new Button();
+            EncodedPkPassLabel = new Label();
+            EncodedPkPassTextBox = new TextBox();
+            Base64FileLabel = new Label();
+            Base64FileTextBox = new TextBox();
+            FileExtensionLabel = new Label();
+            FileExtensionTextBox = new TextBox();
+            SaveFileButton = new Button();
+            Credentials = new GroupBox();
+            CopyPlainPassPhraseButton = new Button();
+            CopyBase64KeyButton = new Button();
+            CopyBase64CerButton = new Button();
             ((System.ComponentModel.ISupportInitialize)FilesGrid).BeginInit();
-            panel1.SuspendLayout();
+            Credentials.SuspendLayout();
             SuspendLayout();
             // 
             // FilesGrid
@@ -63,283 +44,285 @@ namespace CertificatesTool
             FilesGrid.AllowUserToAddRows = false;
             FilesGrid.AllowUserToDeleteRows = false;
             FilesGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            FilesGrid.Columns.AddRange(new DataGridViewColumn[] { Column7, Column2, Column3, Column4, Column5, RFC, Column6, Column1 });
             FilesGrid.Dock = DockStyle.Fill;
             FilesGrid.Location = new Point(0, 0);
+            FilesGrid.Margin = new Padding(6);
+            FilesGrid.MultiSelect = false;
             FilesGrid.Name = "FilesGrid";
-            FilesGrid.Size = new Size(1204, 330);
-            FilesGrid.TabIndex = 3;
+            FilesGrid.ReadOnly = true;
+            FilesGrid.RowHeadersWidth = 82;
+            FilesGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            FilesGrid.Size = new Size(1756, 912);
+            FilesGrid.TabIndex = 0;
             // 
-            // Column7
+            // AddCredentialButton
             // 
-            Column7.HeaderText = "Select";
-            Column7.Name = "Column7";
-            Column7.Resizable = DataGridViewTriState.True;
-            Column7.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column2
-            // 
-            Column2.HeaderText = "FileType";
-            Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            Column3.HeaderText = "Password";
-            Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            Column4.HeaderText = "ValidFrom";
-            Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            Column5.HeaderText = "ValidTo";
-            Column5.Name = "Column5";
-            // 
-            // RFC
-            // 
-            RFC.HeaderText = "RFC";
-            RFC.Name = "RFC";
-            // 
-            // Column6
-            // 
-            Column6.HeaderText = "RAZON SOCIAL";
-            Column6.Name = "Column6";
-            // 
-            // Column1
-            // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column1.HeaderText = "Base64File";
-            Column1.Name = "Column1";
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(SaveFileButton);
-            panel1.Controls.Add(FileExtensionTextBox);
-            panel1.Controls.Add(Base64FileTextBox);
-            panel1.Controls.Add(EncodePkPassButton);
-            panel1.Controls.Add(SaveButton);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(InitialPathTextBox);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(EncodedPkPassTextBox);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(PassTextBox);
-            panel1.Controls.Add(ClearButton);
-            panel1.Controls.Add(RemoveButton);
-            panel1.Controls.Add(AddFileButton);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 330);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1204, 155);
-            panel1.TabIndex = 4;
-            // 
-            // SaveFileButton
-            // 
-            SaveFileButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            SaveFileButton.Location = new Point(860, 95);
-            SaveFileButton.Name = "SaveFileButton";
-            SaveFileButton.Size = new Size(89, 52);
-            SaveFileButton.TabIndex = 16;
-            SaveFileButton.Text = "Save File";
-            SaveFileButton.UseVisualStyleBackColor = true;
-            SaveFileButton.Click += SaveFileButton_Click;
-            // 
-            // FileExtensionTextBox
-            // 
-            FileExtensionTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            FileExtensionTextBox.Location = new Point(691, 124);
-            FileExtensionTextBox.Name = "FileExtensionTextBox";
-            FileExtensionTextBox.Size = new Size(163, 23);
-            FileExtensionTextBox.TabIndex = 15;
-            // 
-            // Base64FileTextBox
-            // 
-            Base64FileTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            Base64FileTextBox.Location = new Point(691, 95);
-            Base64FileTextBox.Name = "Base64FileTextBox";
-            Base64FileTextBox.Size = new Size(163, 23);
-            Base64FileTextBox.TabIndex = 14;
-            // 
-            // EncodePkPassButton
-            // 
-            EncodePkPassButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            EncodePkPassButton.Location = new Point(546, 13);
-            EncodePkPassButton.Name = "EncodePkPassButton";
-            EncodePkPassButton.Size = new Size(139, 48);
-            EncodePkPassButton.TabIndex = 13;
-            EncodePkPassButton.Text = "Encode PK Pass";
-            EncodePkPassButton.UseVisualStyleBackColor = true;
-            EncodePkPassButton.Click += EncodePkPassButton_Click;
-            // 
-            // SaveButton
-            // 
-            SaveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            SaveButton.Location = new Point(1029, 92);
-            SaveButton.Name = "SaveButton";
-            SaveButton.Size = new Size(163, 51);
-            SaveButton.TabIndex = 12;
-            SaveButton.Text = "Sign and verify demo data";
-            SaveButton.UseVisualStyleBackColor = true;
-            SaveButton.Click += SaveButton_Click;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Location = new Point(3, 95);
-            label3.Name = "label3";
-            label3.Size = new Size(84, 15);
-            label3.TabIndex = 11;
-            label3.Text = "InitialDirectory";
-            // 
-            // InitialPathTextBox
-            // 
-            InitialPathTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            InitialPathTextBox.Location = new Point(3, 120);
-            InitialPathTextBox.Name = "InitialPathTextBox";
-            InitialPathTextBox.Size = new Size(512, 23);
-            InitialPathTextBox.TabIndex = 10;
-            InitialPathTextBox.Text = "G:\\Mi unidad\\Facturacion\\RFC-PAC-SC(SellosPrueba)\\Personas Fisicas";
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label2.AutoSize = true;
-            label2.Location = new Point(6, 13);
-            label2.Name = "label2";
-            label2.Size = new Size(166, 15);
-            label2.TabIndex = 9;
-            label2.Text = "Encoded Private key Password";
-            // 
-            // EncodedPkPassTextBox
-            // 
-            EncodedPkPassTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            EncodedPkPassTextBox.Location = new Point(6, 38);
-            EncodedPkPassTextBox.Name = "EncodedPkPassTextBox";
-            EncodedPkPassTextBox.Size = new Size(360, 23);
-            EncodedPkPassTextBox.TabIndex = 8;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.Location = new Point(372, 13);
-            label1.Name = "label1";
-            label1.Size = new Size(120, 15);
-            label1.TabIndex = 7;
-            label1.Text = "Plain Private Key Pass";
-            // 
-            // PassTextBox
-            // 
-            PassTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            PassTextBox.Location = new Point(372, 38);
-            PassTextBox.Name = "PassTextBox";
-            PassTextBox.Size = new Size(154, 23);
-            PassTextBox.TabIndex = 6;
-            PassTextBox.Text = "12345678a";
-            // 
-            // ClearButton
-            // 
-            ClearButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ClearButton.Location = new Point(1029, 13);
-            ClearButton.Name = "ClearButton";
-            ClearButton.Size = new Size(163, 48);
-            ClearButton.TabIndex = 5;
-            ClearButton.Text = "Clear All";
-            ClearButton.UseVisualStyleBackColor = true;
-            ClearButton.Click += ClearButton_Click;
+            AddCredentialButton.Location = new Point(9, 41);
+            AddCredentialButton.Margin = new Padding(6);
+            AddCredentialButton.Name = "AddCredentialButton";
+            AddCredentialButton.Size = new Size(258, 70);
+            AddCredentialButton.TabIndex = 0;
+            AddCredentialButton.Text = "Agregar Credencial";
+            AddCredentialButton.UseVisualStyleBackColor = true;
+            AddCredentialButton.Click += AddCredentialButton_Click;
             // 
             // RemoveButton
             // 
-            RemoveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            RemoveButton.Location = new Point(860, 13);
+            RemoveButton.Location = new Point(279, 41);
+            RemoveButton.Margin = new Padding(6);
             RemoveButton.Name = "RemoveButton";
-            RemoveButton.Size = new Size(163, 48);
-            RemoveButton.TabIndex = 4;
-            RemoveButton.Text = "Remove";
+            RemoveButton.Size = new Size(258, 70);
+            RemoveButton.TabIndex = 1;
+            RemoveButton.Text = "Eliminar Credencial";
             RemoveButton.UseVisualStyleBackColor = true;
             RemoveButton.Click += RemoveButton_Click;
             // 
-            // AddFileButton
+            // ClearButton
             // 
-            AddFileButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            AddFileButton.Location = new Point(691, 13);
-            AddFileButton.Name = "AddFileButton";
-            AddFileButton.Size = new Size(163, 48);
-            AddFileButton.TabIndex = 3;
-            AddFileButton.Text = "AddFile";
-            AddFileButton.UseVisualStyleBackColor = true;
-            AddFileButton.Click += AddFileButton_Click;
+            ClearButton.Location = new Point(549, 41);
+            ClearButton.Margin = new Padding(6);
+            ClearButton.Name = "ClearButton";
+            ClearButton.Size = new Size(258, 70);
+            ClearButton.TabIndex = 2;
+            ClearButton.Text = "Eliminar Todo";
+            ClearButton.UseVisualStyleBackColor = true;
+            ClearButton.Click += ClearButton_Click;
             // 
-            // label4
+            // ExportCerButton
             // 
-            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.Location = new Point(612, 103);
-            label4.Name = "label4";
-            label4.Size = new Size(73, 15);
-            label4.TabIndex = 17;
-            label4.Text = "BASE64 FILE:";
+            ExportCerButton.Location = new Point(9, 123);
+            ExportCerButton.Margin = new Padding(6);
+            ExportCerButton.Name = "ExportCerButton";
+            ExportCerButton.Size = new Size(258, 70);
+            ExportCerButton.TabIndex = 3;
+            ExportCerButton.Text = "Exportar .cer";
+            ExportCerButton.UseVisualStyleBackColor = true;
+            ExportCerButton.Click += ExportCerButton_Click;
             // 
-            // label5
+            // ExportKeyButton
             // 
-            label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Location = new Point(586, 127);
-            label5.Name = "label5";
-            label5.Size = new Size(99, 15);
-            label5.TabIndex = 18;
-            label5.Text = "FILE EXTENSION :";
+            ExportKeyButton.Location = new Point(279, 123);
+            ExportKeyButton.Margin = new Padding(6);
+            ExportKeyButton.Name = "ExportKeyButton";
+            ExportKeyButton.Size = new Size(258, 70);
+            ExportKeyButton.TabIndex = 4;
+            ExportKeyButton.Text = "Exportar .key";
+            ExportKeyButton.UseVisualStyleBackColor = true;
+            ExportKeyButton.Click += ExportKeyButton_Click;
+            // 
+            // SavePairButton
+            // 
+            SavePairButton.Location = new Point(549, 123);
+            SavePairButton.Margin = new Padding(6);
+            SavePairButton.Name = "SavePairButton";
+            SavePairButton.Size = new Size(258, 70);
+            SavePairButton.TabIndex = 5;
+            SavePairButton.Text = "Exportar Credencial";
+            SavePairButton.UseVisualStyleBackColor = true;
+            SavePairButton.Click += SavePairButton_Click;
+            // 
+            // EncodePkPassButton
+            // 
+            EncodePkPassButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            EncodePkPassButton.Location = new Point(998, 34);
+            EncodePkPassButton.Margin = new Padding(6);
+            EncodePkPassButton.Name = "EncodePkPassButton";
+            EncodePkPassButton.Size = new Size(310, 79);
+            EncodePkPassButton.TabIndex = 6;
+            EncodePkPassButton.Text = "Codificar pass (base64)";
+            EncodePkPassButton.UseVisualStyleBackColor = true;
+            EncodePkPassButton.Click += EncodePkPassButton_Click;
+            // 
+            // SignAndVerifyButton
+            // 
+            SignAndVerifyButton.Location = new Point(998, 229);
+            SignAndVerifyButton.Margin = new Padding(6);
+            SignAndVerifyButton.Name = "SignAndVerifyButton";
+            SignAndVerifyButton.Size = new Size(749, 52);
+            SignAndVerifyButton.TabIndex = 7;
+            SignAndVerifyButton.Text = "Firmar y verificar";
+            SignAndVerifyButton.UseVisualStyleBackColor = true;
+            SignAndVerifyButton.Click += SignAndVerifyButton_Click;
+            // 
+            // EncodedPkPassLabel
+            // 
+            EncodedPkPassLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            EncodedPkPassLabel.AutoSize = true;
+            EncodedPkPassLabel.Location = new Point(1318, 28);
+            EncodedPkPassLabel.Margin = new Padding(6, 0, 6, 0);
+            EncodedPkPassLabel.Name = "EncodedPkPassLabel";
+            EncodedPkPassLabel.Size = new Size(345, 32);
+            EncodedPkPassLabel.TabIndex = 8;
+            EncodedPkPassLabel.Text = "Contraseña codificada (base64)";
+            // 
+            // EncodedPkPassTextBox
+            // 
+            EncodedPkPassTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            EncodedPkPassTextBox.Location = new Point(1318, 72);
+            EncodedPkPassTextBox.Margin = new Padding(6);
+            EncodedPkPassTextBox.Name = "EncodedPkPassTextBox";
+            EncodedPkPassTextBox.ReadOnly = true;
+            EncodedPkPassTextBox.Size = new Size(429, 39);
+            EncodedPkPassTextBox.TabIndex = 9;
+            // 
+            // Base64FileLabel
+            // 
+            Base64FileLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Base64FileLabel.AutoSize = true;
+            Base64FileLabel.Location = new Point(998, 138);
+            Base64FileLabel.Margin = new Padding(6, 0, 6, 0);
+            Base64FileLabel.Name = "Base64FileLabel";
+            Base64FileLabel.Size = new Size(176, 32);
+            Base64FileLabel.TabIndex = 10;
+            Base64FileLabel.Text = "Archivo base64";
+            // 
+            // Base64FileTextBox
+            // 
+            Base64FileTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Base64FileTextBox.Location = new Point(998, 178);
+            Base64FileTextBox.Margin = new Padding(6);
+            Base64FileTextBox.Name = "Base64FileTextBox";
+            Base64FileTextBox.Size = new Size(310, 39);
+            Base64FileTextBox.TabIndex = 11;
+            // 
+            // FileExtensionLabel
+            // 
+            FileExtensionLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            FileExtensionLabel.AutoSize = true;
+            FileExtensionLabel.Location = new Point(1318, 140);
+            FileExtensionLabel.Margin = new Padding(6, 0, 6, 0);
+            FileExtensionLabel.Name = "FileExtensionLabel";
+            FileExtensionLabel.Size = new Size(116, 32);
+            FileExtensionLabel.TabIndex = 12;
+            FileExtensionLabel.Text = "Extensión";
+            // 
+            // FileExtensionTextBox
+            // 
+            FileExtensionTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            FileExtensionTextBox.Location = new Point(1320, 178);
+            FileExtensionTextBox.Margin = new Padding(6);
+            FileExtensionTextBox.Name = "FileExtensionTextBox";
+            FileExtensionTextBox.Size = new Size(298, 39);
+            FileExtensionTextBox.TabIndex = 13;
+            // 
+            // SaveFileButton
+            // 
+            SaveFileButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveFileButton.Location = new Point(1630, 161);
+            SaveFileButton.Margin = new Padding(6);
+            SaveFileButton.Name = "SaveFileButton";
+            SaveFileButton.Size = new Size(117, 56);
+            SaveFileButton.TabIndex = 14;
+            SaveFileButton.Text = "Guardar";
+            SaveFileButton.UseVisualStyleBackColor = true;
+            SaveFileButton.Click += SaveFileButton_Click;
+            // 
+            // Credentials
+            // 
+            Credentials.Controls.Add(CopyPlainPassPhraseButton);
+            Credentials.Controls.Add(CopyBase64KeyButton);
+            Credentials.Controls.Add(CopyBase64CerButton);
+            Credentials.Controls.Add(Base64FileLabel);
+            Credentials.Controls.Add(EncodedPkPassLabel);
+            Credentials.Controls.Add(Base64FileTextBox);
+            Credentials.Controls.Add(FileExtensionLabel);
+            Credentials.Controls.Add(EncodePkPassButton);
+            Credentials.Controls.Add(FileExtensionTextBox);
+            Credentials.Controls.Add(EncodedPkPassTextBox);
+            Credentials.Controls.Add(SaveFileButton);
+            Credentials.Controls.Add(AddCredentialButton);
+            Credentials.Controls.Add(SignAndVerifyButton);
+            Credentials.Controls.Add(SavePairButton);
+            Credentials.Controls.Add(RemoveButton);
+            Credentials.Controls.Add(ExportKeyButton);
+            Credentials.Controls.Add(ClearButton);
+            Credentials.Controls.Add(ExportCerButton);
+            Credentials.Dock = DockStyle.Bottom;
+            Credentials.Location = new Point(0, 609);
+            Credentials.Name = "Credentials";
+            Credentials.Size = new Size(1756, 303);
+            Credentials.TabIndex = 15;
+            Credentials.TabStop = false;
+            Credentials.Text = "Credentials";
+      
+            // 
+            // CopyPlainPassPhraseButton
+            // 
+            CopyPlainPassPhraseButton.Location = new Point(549, 211);
+            CopyPlainPassPhraseButton.Margin = new Padding(6);
+            CopyPlainPassPhraseButton.Name = "CopyPlainPassPhraseButton";
+            CopyPlainPassPhraseButton.Size = new Size(258, 70);
+            CopyPlainPassPhraseButton.TabIndex = 17;
+            CopyPlainPassPhraseButton.Text = "Copiar contraseña";
+            CopyPlainPassPhraseButton.UseVisualStyleBackColor = true;
+            CopyPlainPassPhraseButton.Click += CopyPlainPassPhraseButton_Click;
+            // 
+            // CopyBase64KeyButton
+            // 
+            CopyBase64KeyButton.Location = new Point(279, 211);
+            CopyBase64KeyButton.Margin = new Padding(6);
+            CopyBase64KeyButton.Name = "CopyBase64KeyButton";
+            CopyBase64KeyButton.Size = new Size(258, 70);
+            CopyBase64KeyButton.TabIndex = 16;
+            CopyBase64KeyButton.Text = "Copiar .key (base64)";
+            CopyBase64KeyButton.UseVisualStyleBackColor = true;
+            CopyBase64KeyButton.Click += CopyBase64KeyButton_Click;
+            // 
+            // CopyBase64CerButton
+            // 
+            CopyBase64CerButton.Location = new Point(9, 211);
+            CopyBase64CerButton.Margin = new Padding(6);
+            CopyBase64CerButton.Name = "CopyBase64CerButton";
+            CopyBase64CerButton.Size = new Size(258, 70);
+            CopyBase64CerButton.TabIndex = 15;
+            CopyBase64CerButton.Text = "Copiar .cer (base64)";
+            CopyBase64CerButton.UseVisualStyleBackColor = true;
+            CopyBase64CerButton.Click += CopyBase64CerButton_Click;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1204, 485);
+            ClientSize = new Size(1756, 912);
+            Controls.Add(Credentials);
             Controls.Add(FilesGrid);
-            Controls.Add(panel1);
+            Margin = new Padding(6);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Certificates Tool";
             FormClosing += Form1_FormClosing;
             ((System.ComponentModel.ISupportInitialize)FilesGrid).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Credentials.ResumeLayout(false);
+            Credentials.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
 
         private DataGridView FilesGrid;
-        private Panel panel1;
-        private Button ClearButton;
+
+        private Button AddCredentialButton;
         private Button RemoveButton;
-        private Button AddFileButton;
-        private Label label1;
-        private TextBox PassTextBox;
-        private Label label2;
-        private TextBox EncodedPkPassTextBox;
-        private Label label3;
-        private TextBox InitialPathTextBox;
-        private Button SaveButton;
-        private DataGridViewCheckBoxColumn Column7;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn Column4;
-        private DataGridViewTextBoxColumn Column5;
-        private DataGridViewTextBoxColumn RFC;
-        private DataGridViewTextBoxColumn Column6;
-        private DataGridViewTextBoxColumn Column1;
+        private Button ClearButton;
+
+        private Button ExportCerButton;
+        private Button ExportKeyButton;
+        private Button SavePairButton;
+
         private Button EncodePkPassButton;
-        private Button SaveFileButton;
-        private TextBox FileExtensionTextBox;
+        private Button SignAndVerifyButton;
+
+        private Label EncodedPkPassLabel;
+        private TextBox EncodedPkPassTextBox;
+
+        private Label Base64FileLabel;
         private TextBox Base64FileTextBox;
-        private Label label5;
-        private Label label4;
+        private Label FileExtensionLabel;
+        private TextBox FileExtensionTextBox;
+        private Button SaveFileButton;
+        private GroupBox Credentials;
+        private Button CopyBase64KeyButton;
+        private Button CopyBase64CerButton;
+        private Button CopyPlainPassPhraseButton;
     }
 }
