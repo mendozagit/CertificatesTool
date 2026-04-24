@@ -65,11 +65,12 @@ namespace CertificatesTool
                 return;
 
             var incoming = dialog.Result;
-            if (_credentials.Any(c => string.Equals(
-                    c.RazonSocial, incoming.RazonSocial, StringComparison.OrdinalIgnoreCase)))
+            if (_credentials.Any(c =>
+                    string.Equals(c.Rfc, incoming.Rfc, StringComparison.OrdinalIgnoreCase)
+                    && c.Type == incoming.Type))
             {
                 MessageBox.Show(this,
-                    $"Ya existe una credencial con la razón social \"{incoming.RazonSocial}\".",
+                    $"Ya existe una credencial {incoming.Type} para el RFC \"{incoming.Rfc}\".",
                     "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
